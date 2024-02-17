@@ -4,13 +4,9 @@ Template repo for quickly spinning up a full stack react app
 * Frontend
     * React w/ vite
     * Shadcn UI
-        * Maybe fix responsive by just conditionally rendering a drop down menu button when MD or lower... Otherwise static nav
-            * bc current styling approach is pretty trash
-        * 
     * PWA Features Out Of Box
         * manifest.json
         * Install App Banner
-
 * Backend
     * Python FastAPI
 * Database

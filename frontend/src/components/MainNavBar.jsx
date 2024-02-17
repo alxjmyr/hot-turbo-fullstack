@@ -16,19 +16,25 @@ const MainNav = (navItems) => {
             <div className="items-center justify-between px-1 max-w-screen-xl mx-auto md:flex md:px-8">
                 <div className="flex items-center justify-between md:block">
                     {theme === 'light' ? (
-                        <img
-                            src="turbo-sketch.svg"
-                            alt="Turbo Charger"
-                            width="85px"
-                            height="85px"
-                        />
+                        <a href="/home">
+                            <img
+                                src="turbo-sketch.svg"
+                                alt="Turbo Charger"
+                                width="85px"
+                                height="85px"
+                            />
+                        </a>
+
                     ) : (
-                        <img
-                            src="turbo-sketch-white.svg"
-                            alt="Turbo Charger"
-                            width="85px"
-                            height="85px"
-                        />
+                        <a href="/home">
+                            <img
+                                src="turbo-sketch-white.svg"
+                                alt="Turbo Charger"
+                                width="85px"
+                                height="85px"
+                            />
+                        </a>
+
                     )}
                     <div className="md:hidden">
                         <NavBurgerMenu items={menuItems} />
