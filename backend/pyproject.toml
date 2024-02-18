@@ -10,6 +10,7 @@ packages = [{include = "hotturbo_api"}]
 python = "^3.12"
 fastapi = "^0.109.2"
 uvicorn = "^0.27.1"
+python-dotenv = "^1.0.1"
 
 [tool.poetry.group.dev.dependencies]
 mypy = "^1.8.0"
