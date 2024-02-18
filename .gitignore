@@ -33,6 +33,9 @@ dist-ssr
 # SSL / Certs Stuff
 letsencrypt/
 
+# Database Stuff
+database/data/pgdata
+
 
 # Backend / Python Stuff
 # Byte-compiled / optimized / DLL files
