@@ -21,10 +21,14 @@ if BACKEND_CORS_ORGINS:
 
 app.include_router(api_router)
 
-# @app.get("/api/root")
-# async def root():
-#     app_logger.info("API Root called")
-#
+if __name__ == "__main__":
+    """
+    Used for running app in debugger during development. For production usecases
+    app should be run via command line using uvicorn or gunicorn for multiple workers
+    """
+    import uvicorn
+
+    uvicorn.run(app, port=8000)
 
 
 # from fastapi import FastAPI

@@ -18,7 +18,7 @@ app_logger.info(f"Running API in {APP_ENV} mode")
 # Frontend info
 DOMAIN_FRONTEND = getenv("DOMAIN_FRONTEND")
 
-BACKEND_CORS_ORGINS = [f"http://{DOMAIN_FRONTEND}", f"https://{DOMAIN_FRONTEND}"]
+BACKEND_CORS_ORGINS = [f"{DOMAIN_FRONTEND}"]
 
 # DB Info
 POSTGRES_USER = getenv("POSTGRES_USER")
