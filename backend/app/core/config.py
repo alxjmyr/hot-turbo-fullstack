@@ -14,9 +14,12 @@ logging.basicConfig(
 load_dotenv(dotenv_path="../.env.local")
 load_dotenv(dotenv_path="../../.env.local")
 
-# Get app environment
+# Get app environment & General Settings
 APP_ENV = getenv("APP_ENV")
 app_logger.info(f"Running API in {APP_ENV} mode")
+
+PROJECT_NAME = getenv("PROJECT_NAME")
+API_V1_PREFIX = getenv("API_V1_PREFIX")
 
 # Frontend info
 DOMAIN_FRONTEND = getenv("DOMAIN_FRONTEND")

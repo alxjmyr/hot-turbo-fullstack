@@ -5,10 +5,13 @@ Root of Hot Turbo Backend API
 from fastapi import FastAPI
 from starlette.middleware.cors import CORSMiddleware
 
-from core.config import app_logger, BACKEND_CORS_ORGINS
+from core.config import app_logger, BACKEND_CORS_ORGINS, API_V1_PREFIX, PROJECT_NAME
 from api.v1.api import api_router
 
-app = FastAPI()
+app = FastAPI(
+    title=PROJECT_NAME,
+    openapi_url=f"/{API_V1_PREFIX}/openapi.json",
+)
 
 if BACKEND_CORS_ORGINS:
     app.add_middleware(
@@ -19,7 +22,7 @@ if BACKEND_CORS_ORGINS:
         allow_headers=["*"],
     )
 
-app.include_router(api_router)
+app.include_router(api_router, prefix=f"/{API_V1_PREFIX}")
 
 if __name__ == "__main__":
     """
@@ -29,34 +32,3 @@ if __name__ == "__main__":
     import uvicorn
 
     uvicorn.run(app, port=8000)
-
-
-# from fastapi import FastAPI
-# from fastapi.routing import APIRoute
-# from starlette.middleware.cors import CORSMiddleware
-
-# from app.api.api_v1.api import api_router
-# from app.core.config import settings
-
-
-# def custom_generate_unique_id(route: APIRoute):
-#     return f"{route.tags[0]}-{route.name}"
-
-
-# app = FastAPI(
-#     title=settings.PROJECT_NAME,
-#     openapi_url=f"{settings.API_V1_STR}/openapi.json",
-#     generate_unique_id_function=custom_generate_unique_id,
-# )
-
-# # Set all CORS enabled origins
-# if settings.BACKEND_CORS_ORIGINS:
-#     app.add_middleware(
-#         CORSMiddleware,
-#         allow_origins=[str(origin) for origin in settings.BACKEND_CORS_ORIGINS],
-#         allow_credentials=True,
-#         allow_methods=["*"],
-#         allow_headers=["*"],
-#     )
-
-# app.include_router(api_router, prefix=settings.API_V1_STR)
