@@ -10,9 +10,9 @@ from passlib.context import CryptContext
 
 from datetime import datetime, timedelta
 
-from schemas.auth import AuthToken
+from app.schemas.auth import AuthToken
 
-from core.config import JWT_AUTH_SECRET, JWT_ALGO, ACCESS_TOKEN_EXPIRE_DAYS
+from app.core.config import JWT_AUTH_SECRET, JWT_ALGO, ACCESS_TOKEN_EXPIRE_DAYS
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 

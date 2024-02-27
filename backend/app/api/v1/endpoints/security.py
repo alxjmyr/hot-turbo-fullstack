@@ -3,11 +3,11 @@ from fastapi.security import OAuth2PasswordRequestForm
 from fastapi.security import OAuth2PasswordBearer
 from typing import Annotated
 
-from api.dependencies import SessionDep
-from crud_utils.user_crud import authenticate_user
-from core.security import create_jwt_token
-from schemas.auth import AuthToken
-from core.config import API_V1_PREFIX
+from app.api.dependencies import SessionDep
+from app.crud_utils.user_crud import authenticate_user
+from app.core.security import create_jwt_token
+from app.schemas.auth import AuthToken
+from app.core.config import API_V1_PREFIX
 
 # oauth2_scheme = OAuth2PasswordBearer(tokenUrl=f"/{API_V1_PREFIX}/token")
 

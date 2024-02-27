@@ -1,6 +1,6 @@
 from pydantic import BaseModel, EmailStr
 from typing import Union
-from schemas.db_models import UserOut
+from app.schemas.db_models import UserOut
 from datetime import datetime
 
 

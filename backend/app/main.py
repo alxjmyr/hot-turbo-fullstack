@@ -5,8 +5,15 @@ Root of Hot Turbo Backend API
 from fastapi import FastAPI
 from starlette.middleware.cors import CORSMiddleware
 
-from core.config import app_logger, BACKEND_CORS_ORGINS, API_V1_PREFIX, PROJECT_NAME
-from api.v1.api import api_router
+# from core.config import app_logger, BACKEND_CORS_ORGINS, API_V1_PREFIX, PROJECT_NAME
+# from api.v1.api import api_router
+from app.core.config import (
+    app_logger,
+    BACKEND_CORS_ORGINS,
+    API_V1_PREFIX,
+    PROJECT_NAME,
+)
+from app.api.v1.api import api_router
 
 app = FastAPI(
     title=PROJECT_NAME,

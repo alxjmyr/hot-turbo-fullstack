@@ -8,6 +8,9 @@
         * run `alembic upgrade head` inside app directory w/ db running locally to upgrade db w/ changes
 
 To Do
+* fix imports (I think this is working now)
+    * This `uvicorn app.main:app ` runs from `backend/`
+    * Running `pytest` works from `backend/`
 * build update user endpoint
 * build password reset endpoint
     * needs email / SMS integration

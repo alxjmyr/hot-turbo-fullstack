@@ -1,10 +1,14 @@
 from typing import Any
 from fastapi import APIRouter, Depends, HTTPException
-from api.dependencies import SessionDep, CurrentUser, TokenDep
+from app.api.dependencies import SessionDep, CurrentUser, TokenDep
 
-from schemas.db_models import User, UserCreate, UserOut
-from crud_utils.user_crud import get_user_by_email, create_new_user, authenticate_user
-from core.security import create_jwt_token
+from app.schemas.db_models import User, UserCreate, UserOut
+from app.crud_utils.user_crud import (
+    get_user_by_email,
+    create_new_user,
+    authenticate_user,
+)
+from app.core.security import create_jwt_token
 
 
 router = APIRouter()

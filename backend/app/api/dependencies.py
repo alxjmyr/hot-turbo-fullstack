@@ -9,10 +9,10 @@ from fastapi.security import OAuth2PasswordBearer
 from jose import jwt
 from pydantic import ValidationError
 
-from db.engine import db_engine
-from core.config import API_V1_PREFIX, JWT_AUTH_SECRET, JWT_ALGO
-from schemas.db_models import User
-from schemas.auth import TokenPayload
+from app.db.engine import db_engine
+from app.core.config import API_V1_PREFIX, JWT_AUTH_SECRET, JWT_ALGO
+from app.schemas.db_models import User
+from app.schemas.auth import TokenPayload
 
 
 # get db function to return a generator yielding a db session from the db engine

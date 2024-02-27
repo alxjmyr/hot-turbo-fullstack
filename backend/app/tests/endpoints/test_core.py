@@ -1,6 +1,6 @@
 from fastapi.testclient import TestClient
 
-from core.config import API_V1_PREFIX
+from app.core.config import API_V1_PREFIX
 
 
 def test_hello(client: TestClient) -> None:

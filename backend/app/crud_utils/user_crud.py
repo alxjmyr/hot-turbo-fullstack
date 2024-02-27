@@ -5,8 +5,8 @@ Generic utilities for CRUD operations on Users
 from typing import Optional
 from sqlmodel import Session
 
-from schemas.db_models import User, UserCreate
-from core.security import hash_password, verify_password
+from app.schemas.db_models import User, UserCreate
+from app.core.security import hash_password, verify_password
 
 
 # get user by email
