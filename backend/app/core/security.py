@@ -2,13 +2,17 @@
 Security Utils for API
 """
 
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, UTC
 from typing import Any, Union
 
 from jose import jwt
 from passlib.context import CryptContext
 
-from core.config import JWT_AUTH_SECRET
+from datetime import datetime, timedelta
+
+from schemas.auth import AuthToken
+
+from core.config import JWT_AUTH_SECRET, JWT_ALGO, ACCESS_TOKEN_EXPIRE_DAYS
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
@@ -29,11 +33,22 @@ def verify_password(plain_pwd: str, hashed_pwd: str) -> bool:
 
 
 # create new access token w/ jose jwt
-def create_jwt_token():
+def create_jwt_token(user_id: int, email: str, expires_delta: timedelta = None) -> str:
     """
     Purpose:
     """
-    pass
+    if expires_delta:
+        expire_at = datetime.now(UTC) + expires_delta
+    else:
+        expire_at = datetime.now(UTC) + timedelta(days=ACCESS_TOKEN_EXPIRE_DAYS)
+
+    to_encode = {
+        "expires_at": expire_at.strftime("%Y-%m-%d"),
+        "user_id": user_id,
+        "email": email,
+    }
+    encoded_jwt = jwt.encode(to_encode, JWT_AUTH_SECRET, algorithm=JWT_ALGO)
+    return encoded_jwt
 
 
 # potentially also a function to verify a provided JWT???

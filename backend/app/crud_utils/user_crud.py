@@ -6,7 +6,7 @@ from typing import Optional
 from sqlmodel import Session
 
 from schemas.db_models import User, UserCreate
-from core.security import hash_password
+from core.security import hash_password, verify_password
 
 
 # get user by email
@@ -32,3 +32,21 @@ def create_new_user(db: Session, user_in: UserCreate) -> User:
     db.commit()
     db.refresh(new_db_user)
     return new_db_user
+
+
+def authenticate_user(db: Session, email: str, pwd: str) -> Optional[User]:
+    """
+    Purpose: checks for user by email and verifies password
+    """
+
+    user = get_user_by_email(db=db, email=email)
+
+    if not user:
+        return None
+
+    pwd_verified = verify_password(plain_pwd=pwd, hashed_pwd=user.hashed_password)
+
+    if pwd_verified:
+        return user
+
+    return None
