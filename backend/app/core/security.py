@@ -47,6 +47,7 @@ def create_jwt_token(user_id: int, email: str, expires_delta: timedelta = None) 
         "user_id": user_id,
         "email": email,
     }
+    # to_encode = TokenPayload(expires_at=expire_at, user_id=user_id, email=email)
     encoded_jwt = jwt.encode(to_encode, JWT_AUTH_SECRET, algorithm=JWT_ALGO)
     return encoded_jwt
 

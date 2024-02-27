@@ -1,9 +1,8 @@
 from typing import Any
 from fastapi import APIRouter, Depends, HTTPException
-from api.dependencies import SessionDep
+from api.dependencies import SessionDep, CurrentUser, TokenDep
 
 from schemas.db_models import User, UserCreate, UserOut
-from schemas.auth import LoginUser, AuthenticatedUser
 from crud_utils.user_crud import get_user_by_email, create_new_user, authenticate_user
 from core.security import create_jwt_token
 
@@ -31,3 +30,9 @@ def create_user(db_session: SessionDep, user_in: UserCreate) -> Any:
 
     # return new user in user out obj
     return user
+
+
+@router.get(path="/users/me", response_model=UserOut)
+def get_current_user_info(current_user: CurrentUser) -> Any:
+    """gets the current user info based on user token"""
+    return current_user

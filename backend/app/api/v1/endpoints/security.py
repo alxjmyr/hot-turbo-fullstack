@@ -9,7 +9,7 @@ from core.security import create_jwt_token
 from schemas.auth import AuthToken
 from core.config import API_V1_PREFIX
 
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl=f"{API_V1_PREFIX}/token")
+# oauth2_scheme = OAuth2PasswordBearer(tokenUrl=f"/{API_V1_PREFIX}/token")
 
 router = APIRouter()
 
@@ -31,4 +31,4 @@ def create_auth_token(
     elif not user.is_active:
         raise HTTPException(status_code=400, detail="User is Inactive")
 
-    return AuthToken(token=create_jwt_token(user_id=user.id, email=user.email))
+    return AuthToken(access_token=create_jwt_token(user_id=user.id, email=user.email))

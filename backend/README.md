@@ -8,8 +8,6 @@
         * run `alembic upgrade head` inside app directory w/ db running locally to upgrade db w/ changes
 
 To Do
-* build login / create token endpoint
-* build get current user end point / functions
 * build update user endpoint
 * build password reset endpoint
     * needs email / SMS integration

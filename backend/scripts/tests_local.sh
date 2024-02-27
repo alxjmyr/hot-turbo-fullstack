@@ -1,0 +1,3 @@
+cd ./app &&
+
+PYTHONPATH=. pytest
