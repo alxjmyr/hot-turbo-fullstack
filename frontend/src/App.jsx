@@ -26,8 +26,6 @@ function App() {
   return (
     <>
       <MainNav navItems={NavRouteList} />
-      <p>{import.meta.env.VITE_APP_ENV}</p>
-      <p>{JSON.stringify(apiHello)}</p>
       <AppRoutes />
     </>
   )
