@@ -9,12 +9,13 @@ from app.crud_utils.user_crud import (
     authenticate_user,
 )
 from app.core.security import create_jwt_token
+from app.schemas.auth import AuthToken
 
 
 router = APIRouter()
 
 
-@router.post(path="/users", response_model=UserOut)  # need to define response model
+@router.post(path="/users", response_model=AuthToken)  # need to define response model
 def create_user(db_session: SessionDep, user_in: UserCreate) -> Any:
     """
     Purpose:
@@ -31,9 +32,9 @@ def create_user(db_session: SessionDep, user_in: UserCreate) -> Any:
     user = create_new_user(db=db_session, user_in=user_in)
 
     # TODO: Auto login new user & send confirmation email from backend
-
+    token = AuthToken(access_token=create_jwt_token(user_id=user.id, email=user.email))
     # return new user in user out obj
-    return user
+    return token
 
 
 @router.get(path="/users/me", response_model=UserOut)

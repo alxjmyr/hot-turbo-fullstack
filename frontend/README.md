@@ -2,12 +2,13 @@
 
 TODO
 * User Sign Up Flow
-    * learn about zod & react-hook-form(s)
+    * Clean Up Form Stuff
+    * Clean up post sign up >> Autolog in >> Navigate away flow
+        * Integrate Private Routes Component
+        * Set up "protected page" to navigate to post sign up
 * Log in flow
     * User Context & Token / Auth Management
-    * Auto Navigate User To Protected Page On Login
-* Integrate Private Routes Component
-* Create Protected Post Log in Page   
+    * Auto Navigate User To Protected Page On Login  
 * Add Login / Logout to Header
 * Create User Profile Page
     * Make Profile Editable
