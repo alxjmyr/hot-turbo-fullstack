@@ -1,6 +1,11 @@
 # Hot Turbo FullStack
 Template repo for quickly spinning up a full stack react app
 
+TODO:
+* BE Dockerized
+* FE Dockerized
+* prod + stage docker compose
+
 * Frontend
     * React w/ vite
     * Shadcn UI

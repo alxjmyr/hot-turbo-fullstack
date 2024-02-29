@@ -1,6 +1,8 @@
+import LoginCard from "@/components/LoginCard";
+
 const Login = () => {
     return (
-        <p>This will be the login page eventually</p>
+        <LoginCard />
     )
 };
 

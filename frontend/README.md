@@ -1,18 +1,14 @@
 # Hot Turbo Frontend
 
 TODO
-* User Sign Up Flow
-    * Clean Up Form Stuff
-    * Clean up post sign up >> Autolog in >> Navigate away flow
-        * Integrate Private Routes Component
-        * Set up "protected page" to navigate to post sign up
-* Log in flow
-    * User Context & Token / Auth Management
-    * Auto Navigate User To Protected Page On Login  
-* Add Login / Logout to Header
-* Create User Profile Page
-    * Make Profile Editable
+
+* Add Login / Logout to Header (conditional to login state)
+* Conditional Nav States
+    * Appropriately hide / show nav items based on login state
+* Create User Profile Page (add to header nav)
+    * Make Profile Editable (Update User)
 * Password Reset Flow
+* Go through and fix styling / design type stuff on all pages.....
 
 
 IDEAS-

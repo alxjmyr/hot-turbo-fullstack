@@ -1,4 +1,5 @@
 import { useContext } from "react";
+
 import { useForm } from "react-hook-form";
 
 import { z } from 'zod';
@@ -24,40 +25,30 @@ import { api } from "@/api_client/api";
 import { UserContext } from "@/contexts/UserContext";
 
 
-const signupSchema = z.object({
-    name: z.string().min(2, {
-        message: "Username should be at least 2 chars"
-    }),
+const loginSchema = z.object({
     email: z.string().email({
-        message: "Invalid email address"
+        message: "Invalid Email Address"
     }),
     password: z.string().min(8, {
         message: "Password should be at least 8 chars"
-    }),
-    confirmPassword: z.string()
-}).refine((data) => data.password === data.confirmPassword, {
-    message: "Passwords don't match",
-    path: ["confirmPassword"], // path of error
-});
+    })
+})
 
-const SignupForm = () => {
-
+const LoginForm = () => {
     const { toast } = useToast();
 
     const { setToken } = useContext(UserContext);
 
     const form = useForm({
-        resolver: zodResolver(signupSchema),
+        resolver: zodResolver(loginSchema),
         defaultValues: {
-            name: "",
             email: "",
-            password: "",
-            confirmPassword: ""
+            password: ""
         }
     });
 
     const navigate = useNavigate();
-    const signUpRedirect = () => {
+    const logInRedirect = () => {
         const path = "/protected";
         navigate(path);
     };
@@ -65,16 +56,16 @@ const SignupForm = () => {
     const onSubmit = (data) => {
         // console.log(JSON.stringify(data))
 
-        api.createUser(data.name, data.email, data.password)
+        api.getLoginToken(data.email, data.password)
             .then(response => {
                 // console.log(response.data)
                 setToken(response.data.access_token);
                 form.reset();
-                signUpRedirect();
+                logInRedirect();
             })
             .catch(error => {
                 toast({
-                    title: "Problem Creating Your Account",
+                    title: "Problem At Sign In",
                     description: error.response.data.detail
                 })
             });
@@ -86,31 +77,15 @@ const SignupForm = () => {
             <form onSubmit={form.handleSubmit(onSubmit)}>
                 <FormField
                     control={form.control}
-                    name="name"
-                    render={({ field }) => (
-                        <FormItem>
-                            <FormLabel>Name</FormLabel>
-                            <FormControl>
-                                <Input placeholder="John Smith" {...field} />
-                            </FormControl>
-                            <FormDescription>
-                                This is your public display name.
-                            </FormDescription>
-                            <FormMessage />
-                        </FormItem>
-                    )}
-                />
-                <FormField
-                    control={form.control}
                     name="email"
                     render={({ field }) => (
                         <FormItem>
                             <FormLabel>Email</FormLabel>
                             <FormControl>
-                                <Input placeholder="john@example.com" {...field} />
+                                <Input placeholder="tim@example.com" {...field} />
                             </FormControl>
                             <FormDescription>
-                                This is your email
+                                This is the email associated with your account
                             </FormDescription>
                             <FormMessage />
                         </FormItem>
@@ -126,33 +101,19 @@ const SignupForm = () => {
                                 <Input placeholder="Password" {...field} />
                             </FormControl>
                             <FormDescription>
-                                Password should be more than 8 characters
+                                Should be at least 8 chars
                             </FormDescription>
                             <FormMessage />
                         </FormItem>
                     )}
                 />
-                <FormField
-                    control={form.control}
-                    name="confirmPassword"
-                    render={({ field }) => (
-                        <FormItem>
-                            <FormLabel>Confirm Password</FormLabel>
-                            <FormControl>
-                                <Input placeholder="Confirm Password" {...field} />
-                            </FormControl>
-                            <FormDescription>
-                                Confirm password should match above.
-                            </FormDescription>
-                            <FormMessage />
-                        </FormItem>
-                    )}
-                />
-                <Button type="submit" className="mt-3">Sign Up</Button>
+                <Button type="submit" className="mt-3">Log In</Button>
             </form>
         </Form>
+
+
     )
 
 };
 
-export default SignupForm;
+export default LoginForm;
