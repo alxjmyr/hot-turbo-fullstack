@@ -1,13 +1,11 @@
 import './globals.css'
-import { useContext, useEffect, useState } from 'react';
+import { useContext } from 'react';
 
 import { Toaster } from './components/ui/toaster';
 
 import MainNav from './components/MainNavBar';
 import AppRoutes from './AppRoutes';
-import { NavRouteList } from './AppRoutes';
 
-import { api } from './api_client/api';
 import { UserContext } from './contexts/UserContext';
 
 function App() {
@@ -19,8 +17,7 @@ function App() {
 
   return (
     <>
-      <MainNav navItems={NavRouteList} />
-      <p>{JSON.stringify(userProfile)}</p>
+      <MainNav />
       <AppRoutes />
       <Toaster />
     </>

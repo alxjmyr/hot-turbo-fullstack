@@ -3,8 +3,6 @@
 TODO
 
 * Add Login / Logout to Header (conditional to login state)
-* Conditional Nav States
-    * Appropriately hide / show nav items based on login state
 * Create User Profile Page (add to header nav)
     * Make Profile Editable (Update User)
 * Password Reset Flow

@@ -1,13 +1,37 @@
+import { useContext } from "react";
 import NavBurgerMenu from "./NavBurgerMenu";
 import { Button } from "@/components/ui/button"
 import ThemeToggle from "./ThemeMenu";
 
 import { useTheme } from '../contexts/ThemeContext'
+import { UserContext } from "@/contexts/UserContext";
 
+import { NavRouteList } from "@/AppRoutes";
 
-const MainNav = (navItems) => {
+const routeFilter = (route, token) => {
+    if (token && route.requiresAuth) {
+        return true;
+    };
+
+    if (token && route.showToLoggedIn) {
+        return true;
+    }
+    if (!token && !route.requiresAuth) {
+        return true;
+    };
+
+    return false;
+};
+
+const getFilteredRoutes = (routeList, token) => {
+    const filterOutput = routeList.filter(element => routeFilter(element, token))
+    return filterOutput
+};
+
+const MainNav = () => {
+    const { token } = useContext(UserContext)
     const { theme } = useTheme();
-    const menuItems = navItems.navItems;
+
 
     return (
         <nav
@@ -37,14 +61,19 @@ const MainNav = (navItems) => {
 
                     )}
                     <div className="md:hidden">
-                        <NavBurgerMenu items={menuItems} />
+                        <NavBurgerMenu items={getFilteredRoutes(NavRouteList, token)} />
                     </div>
                 </div>
 
                 <div
                     className="hidden md:visible pb-3 mt-8 md:block md:pb-0 md:mt-0"
                 >
-                    {menuItems.map((item, idx) => (
+                    {/* {NavRouteList.map((item, idx) => (
+                        <Button key={idx} variant="ghost">
+                            <a href={item.path}>{item.title}</a>
+                        </Button>
+                    ))} */}
+                    {getFilteredRoutes(NavRouteList, token).map((item, idx) => (
                         <Button key={idx} variant="ghost">
                             <a href={item.path}>{item.title}</a>
                         </Button>

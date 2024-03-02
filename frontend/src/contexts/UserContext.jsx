@@ -19,12 +19,8 @@ export const UserProvider = (props) => {
                         setToken("");
                         localStorage.setItem("turboToken", "")
                     } else {
-                        // console.log("Context Logger")
-                        // console.log(token);
                         setToken(token);
                         localStorage.setItem("turboToken", token);
-                        // console.log(response.data)
-                        // console.log(response.data.first_name)
                         setUserProfile({
                             email: response.data.email,
                             name: response.data.first_name,

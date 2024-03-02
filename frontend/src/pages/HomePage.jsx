@@ -1,8 +1,13 @@
+import { useContext } from "react";
+
 import { Button } from "@/components/ui/button";
 import { useTheme } from "@/contexts/ThemeContext";
 
+import { UserContext } from "@/contexts/UserContext";
+
 const Home = () => {
     const { theme } = useTheme();
+    const { token } = useContext(UserContext);
 
     return (
         <>
@@ -23,8 +28,15 @@ const Home = () => {
                             height="250px"
                         />
                     )}
-                    <Button className="mr-5"><a href="/signup">Sign Up</a></Button>
-                    <Button className="ml-5"><a href="/login">Login</a></Button>
+                    {!token &&
+                        <>
+                            <Button className="mr-5"><a href="/signup">Sign Up</a></Button>
+                            <Button className="ml-5"><a href="/login">Login</a></Button>
+                        </>}
+                    {token &&
+                        <Button><a href="/protected">Go to Protected Page</a></Button>
+                    }
+
                 </div>
 
             </div>
