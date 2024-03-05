@@ -1,3 +1,4 @@
+import { useContext } from "react";
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -7,11 +8,17 @@ import {
 
 import { Button } from "@/components/ui/button"
 
-import { HamburgerMenuIcon } from "@radix-ui/react-icons";
+import { HamburgerMenuIcon, ExitIcon, PersonIcon } from "@radix-ui/react-icons";
 import ThemeToggle from "./ThemeMenu";
+import { UserContext } from "@/contexts/UserContext";
 
 const NavBurgerMenu = (items) => {
     // const opts = items;
+    const { token, setToken } = useContext(UserContext)
+    const handleLogOut = () => {
+        setToken("");
+        localStorage.setItem("turboToken", "");
+    };
 
     return (
         <div>
@@ -30,7 +37,24 @@ const NavBurgerMenu = (items) => {
                             </DropdownMenuItem>
                         ))
                     }
-                    <ThemeToggle />
+                    <hr />
+                    <div className="flex">
+                        {token &&
+                            <>
+                                <div className="inline">
+                                    <Button variant="ghost" size="sm" onClick={() => handleLogOut()}><ExitIcon /></Button>
+                                </div>
+                                <div className="inline">
+                                    <Button variant="ghost" size="sm"><a href="/profile"><PersonIcon /></a></Button>
+                                </div>
+                            </>
+                        }
+                        <div className="inline">
+                            <ThemeToggle />
+                        </div>
+                    </div>
+
+
                 </DropdownMenuContent>
             </DropdownMenu>
         </div>

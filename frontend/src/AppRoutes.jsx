@@ -11,7 +11,7 @@ import PrivateRoute from "./components/PrivateRoute";
 
 export const NavRouteList = [
     { title: "Home", path: "/", requiresAuth: false, showToLoggedIn: true },
-    { title: "About Us", path: "/about", requiresAuth: false, showToLoggedIn: true },
+    { title: "About", path: "/about", requiresAuth: false, showToLoggedIn: true },
     { title: "Sign Up", path: "/signup", requiresAuth: false, showToLoggedIn: false },
     { title: "Log In", path: "/login", requiresAuth: false, showToLoggedIn: false },
     { title: "Protected Page", path: "/protected", requiresAuth: true, showToLoggedIn: true }

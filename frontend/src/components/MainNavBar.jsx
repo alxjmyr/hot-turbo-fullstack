@@ -2,6 +2,7 @@ import { useContext } from "react";
 import NavBurgerMenu from "./NavBurgerMenu";
 import { Button } from "@/components/ui/button"
 import ThemeToggle from "./ThemeMenu";
+import { ExitIcon, PersonIcon } from "@radix-ui/react-icons";
 
 import { useTheme } from '../contexts/ThemeContext'
 import { UserContext } from "@/contexts/UserContext";
@@ -29,8 +30,13 @@ const getFilteredRoutes = (routeList, token) => {
 };
 
 const MainNav = () => {
-    const { token } = useContext(UserContext)
+    const { token, setToken } = useContext(UserContext)
     const { theme } = useTheme();
+
+    const handleLogOut = () => {
+        setToken("");
+        localStorage.setItem("turboToken", "");
+    };
 
 
     return (
@@ -79,8 +85,20 @@ const MainNav = () => {
                         </Button>
                     ))}
                 </div>
-                <div className="hidden md:visible pb-3 mt-8 md:block md:pb-0 md:mt-0">
-                    <ThemeToggle />
+                <div className="hidden md:visible pb-3 mt-8 md:flex md:pb-0 md:mt-0">
+                    {token &&
+                        <>
+                            <div className="inline">
+                                <Button variant="ghost" size="sm" onClick={() => handleLogOut()}><ExitIcon /></Button>
+                            </div>
+                            <div className="inline">
+                                <Button variant="ghost" size="sm"><a href="/profile"><PersonIcon /></a></Button>
+                            </div>
+                        </>
+                    }
+                    <div className="inline">
+                        <ThemeToggle />
+                    </div>
                 </div>
             </div>
         </nav>
