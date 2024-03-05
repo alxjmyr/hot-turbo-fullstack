@@ -5,6 +5,7 @@ import About from "./pages/AboutPage";
 import NotFound from "./pages/NotFoundPage";
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
+import Profile from "./pages/ProfilePage";
 import ProtectedPage from "./pages/ProtectedPage";
 import PrivateRoute from "./components/PrivateRoute";
 
@@ -29,6 +30,9 @@ const AppRoutes = () => {
                 {/* Protected Routes (requires auth / login) */}
                 <Route element={<PrivateRoute />}>
                     <Route path="/protected" element={<ProtectedPage />} />
+                </Route>
+                <Route element={<PrivateRoute />}>
+                    <Route path="/profile" element={<Profile />} />
                 </Route>
                 {/* Error not found fall back */}
                 <Route path="*" element={<NotFound />} />
