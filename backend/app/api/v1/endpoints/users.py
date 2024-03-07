@@ -2,7 +2,7 @@ from typing import Any
 from fastapi import APIRouter, Depends, HTTPException
 from app.api.dependencies import SessionDep, CurrentUser, TokenDep
 
-from app.schemas.db_models import User, UserCreate, UserOut
+from app.schemas.db_models import User, UserCreate, UserOut, UserBase
 from app.crud_utils.user_crud import (
     get_user_by_email,
     create_new_user,
@@ -40,4 +40,21 @@ def create_user(db_session: SessionDep, user_in: UserCreate) -> Any:
 @router.get(path="/users/me", response_model=UserOut)
 def get_current_user_info(current_user: CurrentUser) -> Any:
     """gets the current user info based on user token"""
+    return current_user
+
+
+@router.patch(path="/users/me", response_model=UserOut)
+def update_current_user_info(
+    current_user: CurrentUser, db_session: SessionDep, user_updated: UserBase
+) -> Any:
+    """
+    Update Current User properties in database
+    """
+
+    updated_user = user_updated.model_dump()
+    current_user.sqlmodel_update(updated_user)
+    db_session.add(current_user)
+    db_session.commit()
+    db_session.refresh(current_user)
+
     return current_user

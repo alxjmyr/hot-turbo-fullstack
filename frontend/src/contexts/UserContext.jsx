@@ -15,7 +15,7 @@ export const UserProvider = (props) => {
             api.getUser(token)
                 .then(response => {
                     if (response.status !== 200 && token) {
-                        console.log("no good, nulling token");
+                        console.log("no good, wiping token");
                         setToken("");
                         localStorage.setItem("turboToken", "")
                     } else {

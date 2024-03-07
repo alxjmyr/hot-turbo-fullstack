@@ -1,14 +1,11 @@
-import { useContext } from "react";
-
-import { UserContext } from "@/contexts/UserContext";
+import ProfileForm from "@/components/ProfileForm";
 
 const Profile = () => {
-    const { userProfile } = useContext(UserContext);
 
     return (
         <>
             <p>This is the user profile</p>
-            <p>{JSON.stringify(userProfile)}</p>
+            <ProfileForm />
         </>
 
 

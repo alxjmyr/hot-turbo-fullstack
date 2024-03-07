@@ -2,9 +2,9 @@
 
 TODO
 
-* Add Login / Logout to Header (conditional to login state)
 * Create User Profile Page (add to header nav)
-    * Make Profile Editable (Update User)
+    * Clean up user updates flow
+    * better input / selection option for deactivating account
 * Password Reset Flow
 * Go through and fix styling / design type stuff on all pages.....
 

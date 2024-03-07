@@ -20,4 +20,7 @@ export const api = {
     async getUser(token) {
         return axios.get(`${baseUrl}users/me`, { headers: { "Content-Type": "application/json", Authorization: "Bearer " + token, } })
     },
+    async patchUser(token, name, email, is_active) {
+        return axios.patch(`${baseUrl}users/me`, { name: name, email: email, is_active: is_active }, { headers: { "Content-Type": "application/json", Authorization: "Bearer " + token, } })
+    }
 };

@@ -12,6 +12,7 @@ To Do
     * This `uvicorn app.main:app ` runs from `backend/`
     * Running `pytest` works from `backend/`
 * build update user endpoint
-* build password reset endpoint
+    * check for duplicate emails on update
+* build password reset endpoint(s)
     * needs email / SMS integration
 
