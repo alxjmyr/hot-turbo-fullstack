@@ -110,8 +110,7 @@ const ProfileForm = () => {
     return (
         <Card className="md:max-w-5xl">
             <CardHeader>
-                <CardTitle>Join the Turbo Team</CardTitle>
-                <CardDescription>Just do it... Turbo Team is dope!</CardDescription>
+                <CardTitle>Edit Account Details Below</CardTitle>
             </CardHeader>
             <CardContent>
                 <Form {...form}>

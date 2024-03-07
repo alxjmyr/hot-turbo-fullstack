@@ -37,12 +37,11 @@ export const UserProvider = (props) => {
                     };
 
                 })
-
-
-
         };
-        fetchUser();
-    }, [token,]);
+        if (token) {
+            fetchUser();
+        }
+    }, [token]);
 
     return (
         <UserContext.Provider value={{ token, setToken, userProfile, setUserProfile }}>

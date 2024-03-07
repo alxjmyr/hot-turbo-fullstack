@@ -11,6 +11,7 @@ import { Button } from "@/components/ui/button"
 import { HamburgerMenuIcon, ExitIcon, PersonIcon } from "@radix-ui/react-icons";
 import ThemeToggle from "./ThemeMenu";
 import { UserContext } from "@/contexts/UserContext";
+import { Separator } from "./ui/separator";
 
 const NavBurgerMenu = (items) => {
     // const opts = items;
@@ -37,7 +38,7 @@ const NavBurgerMenu = (items) => {
                             </DropdownMenuItem>
                         ))
                     }
-                    <hr />
+                    <Separator />
                     <div className="flex">
                         {token &&
                             <>

@@ -4,8 +4,10 @@ const Profile = () => {
 
     return (
         <>
-            <p>This is the user profile</p>
-            <ProfileForm />
+            <div className="grid place-items-center">
+                <ProfileForm />
+            </div>
+
         </>
 
 
