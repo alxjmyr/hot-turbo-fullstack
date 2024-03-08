@@ -41,7 +41,6 @@ def get_current_user(db_session: SessionDep, token: TokenDep) -> User:
     """
 
     try:
-        test = token
         payload = jwt.decode(token, JWT_AUTH_SECRET, algorithms=[JWT_ALGO])
         token_data = TokenPayload(**payload)
     except (jwt.JWTError, ValidationError):

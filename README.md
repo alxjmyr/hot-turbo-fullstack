@@ -7,7 +7,8 @@ TODO:
 * prod + stage docker compose
 * Traefik configs-
     * figure out how to make local dev / staging ssl stuff work better
-    * add in traefik rate limiting configs for prod docker compose stack
+        * https://www.youtube.com/watch?v=liV3c9m_OX8
+    * add in traefik rate limiting / DDOS configs for prod docker compose stack
         * https://doc.traefik.io/traefik/middlewares/http/ratelimit/
 
 * Frontend

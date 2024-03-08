@@ -16,7 +16,7 @@ router = APIRouter()
 
 
 @router.post(path="/users", response_model=AuthToken)  # need to define response model
-def create_user(db_session: SessionDep, user_in: UserCreate) -> Any:
+async def create_user(db_session: SessionDep, user_in: UserCreate) -> Any:
     """
     Purpose:
     """
@@ -38,13 +38,13 @@ def create_user(db_session: SessionDep, user_in: UserCreate) -> Any:
 
 
 @router.get(path="/users/me", response_model=UserOut)
-def get_current_user_info(current_user: CurrentUser) -> Any:
+async def get_current_user_info(current_user: CurrentUser) -> Any:
     """gets the current user info based on user token"""
     return current_user
 
 
 @router.patch(path="/users/me", response_model=UserOut)
-def update_current_user_info(
+async def update_current_user_info(
     current_user: CurrentUser, db_session: SessionDep, user_updated: UserBase
 ) -> Any:
     """

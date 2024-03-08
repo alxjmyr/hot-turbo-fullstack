@@ -3,16 +3,23 @@ Security Utils for API
 """
 
 from datetime import datetime, timedelta, UTC
-from typing import Any, Union
+from typing import Any, Union, Optional
+from sqlmodel import Session
 
 from jose import jwt
 from passlib.context import CryptContext
 
 from datetime import datetime, timedelta
 
-from app.schemas.auth import AuthToken
+from app.schemas.auth import AuthToken, TokenPayload
+from app.schemas.db_models import User
 
-from app.core.config import JWT_AUTH_SECRET, JWT_ALGO, ACCESS_TOKEN_EXPIRE_DAYS
+from app.core.config import (
+    JWT_AUTH_SECRET,
+    JWT_ALGO,
+    ACCESS_TOKEN_EXPIRE_DAYS,
+    app_logger,
+)
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
@@ -43,7 +50,7 @@ def create_jwt_token(user_id: int, email: str, expires_delta: timedelta = None) 
         expire_at = datetime.now(UTC) + timedelta(days=ACCESS_TOKEN_EXPIRE_DAYS)
 
     to_encode = {
-        "expires_at": expire_at.strftime("%Y-%m-%d"),
+        "expires_at": expire_at.isoformat(),
         "user_id": user_id,
         "email": email,
     }
@@ -52,4 +59,27 @@ def create_jwt_token(user_id: int, email: str, expires_delta: timedelta = None) 
     return encoded_jwt
 
 
-# potentially also a function to verify a provided JWT???
+# verify a password reset token
+def verify_reset_token(db_session: Session, token: str) -> Optional[User]:
+    """verifys a pwd reset token and give back user if valid"""
+
+    try:
+        payload = jwt.decode(token, JWT_AUTH_SECRET, algorithms=[JWT_ALGO])
+        token_data = TokenPayload(**payload)
+    except (jwt.JWTError, ValidationError):
+        app_logger.error("Failed to verify password reset token")
+        return None
+
+    if datetime.now(UTC) > token_data.expires_at:
+        app_logger.info(
+            f"Password reset token for user {token_data.user_id} is expired"
+        )
+        return None
+
+    user = db_session.get(User, token_data.user_id)
+
+    if not user:
+        return None
+    if not user.is_active:
+        return None
+    return user

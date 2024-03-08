@@ -13,3 +13,8 @@ class TokenPayload(BaseModel):
     expires_at: datetime
     user_id: int
     email: str
+
+
+class PasswordReset(BaseModel):
+    token: str
+    password: str
