@@ -7,8 +7,10 @@ import {
     CardTitle,
 } from "@/components/ui/card";
 import LoginForm from "./LoginForm";
+import { Button } from "./ui/button";
 
 const LoginCard = () => {
+
     return (
         <Card className="md:max-w-5xl">
             <CardHeader>
@@ -19,7 +21,7 @@ const LoginCard = () => {
                 <LoginForm />
             </CardContent>
             <CardFooter>
-                {/* <p>Card Footer</p> */}
+                <Button variant="ghost" size="sm"><a href="/password-reset">Forgot Password</a></Button>
             </CardFooter>
         </Card>
     )

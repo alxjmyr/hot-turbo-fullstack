@@ -7,6 +7,7 @@ import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import Profile from "./pages/ProfilePage";
 import ProtectedPage from "./pages/ProtectedPage";
+import RecoverPassword from "./pages/PasswordRecoveryPage";
 import PrivateRoute from "./components/PrivateRoute";
 
 
@@ -27,6 +28,7 @@ const AppRoutes = () => {
                 <Route path="/about" element={<About />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/signup" element={<SignUp />} />
+                <Route path="/password-reset" element={<RecoverPassword />} />
                 {/* Protected Routes (requires auth / login) */}
                 <Route element={<PrivateRoute />}>
                     <Route path="/protected" element={<ProtectedPage />} />

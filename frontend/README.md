@@ -1,10 +1,6 @@
 # Hot Turbo Frontend
 
 TODO
-
-* Password Reset Flow
-    * Request Link / Button on login card
-    * Password Reset Screen to execute recovery & redirect to login on success
 * Go through and fix styling / design type stuff on all pages.....
 * Create User Profile Page (add to header nav)
     * Clean up user updates flow

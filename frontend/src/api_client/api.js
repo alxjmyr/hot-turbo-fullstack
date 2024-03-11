@@ -14,6 +14,16 @@ export const api = {
     async getLoginToken(email, password) {
         return axios.post(`${baseUrl}token`, `grant_type=&username=${email}&password=${password}&scope=&client_id=&client_secret=`, { headers: { "Content-Type": "application/x-www-form-urlencoded" }, })
     },
+    async requestPasswordRecovery(email) {
+        return axios.post(`${baseUrl}password-reset/${email}`, { headers: { "Content-Type": "application/json" } })
+    },
+    async recoverPassword(recoveryToken, password) {
+        const reset = {
+            token: recoveryToken,
+            password: password
+        }
+        return axios.post(`${baseUrl}recover-password`, reset, { headers: { "Content-Type": "application/json" } })
+    },
     async createUser(name, email, password) {
         return axios.post(`${baseUrl}users`, { name: name, email: email, password: password }, { headers: { "Content-Type": "application/json" }, })
     },

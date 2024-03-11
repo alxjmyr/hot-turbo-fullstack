@@ -110,8 +110,6 @@ const LoginForm = () => {
                 <Button type="submit" className="mt-3">Log In</Button>
             </form>
         </Form>
-
-
     )
 
 };

@@ -49,7 +49,9 @@ def send_password_reset(token: str, email: str) -> bool:
         template = f.read()
 
     send_reset = send_email(
-        html=template.replace("{{link}}", f"{DOMAIN_FRONTEND}/password-reset/{token}"),
+        html=template.replace(
+            "{{link}}", f"{DOMAIN_FRONTEND}/password-reset?token={token}"
+        ),
         send_to=email,
     )
 
