@@ -10,4 +10,5 @@
 To Do
 * build update user endpoint
     * check for duplicate emails on update
+* Backend push notification support
 

@@ -24,7 +24,11 @@ API_V1_PREFIX = getenv("API_V1_PREFIX")
 # Frontend info
 DOMAIN_FRONTEND = getenv("DOMAIN_FRONTEND")
 
-BACKEND_CORS_ORGINS = [f"{DOMAIN_FRONTEND}"]
+BACKEND_CORS_ORGINS = [
+    f"http://{DOMAIN_FRONTEND}",
+    f"https://{DOMAIN_FRONTEND}",
+    "http://localhost:3000",
+]
 
 # DB Info
 POSTGRES_USER = getenv("POSTGRES_USER")

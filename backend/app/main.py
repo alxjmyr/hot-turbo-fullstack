@@ -19,9 +19,10 @@ app = FastAPI(
 )
 
 if BACKEND_CORS_ORGINS:
+    app_logger.info(f"Allowing CORS from: {BACKEND_CORS_ORGINS}")
     app.add_middleware(
         CORSMiddleware,
-        allow_origins=[str(origin) for origin in BACKEND_CORS_ORGINS],
+        allow_origins=BACKEND_CORS_ORGINS,
         allow_credentials=True,
         allow_methods=["*"],
         allow_headers=["*"],

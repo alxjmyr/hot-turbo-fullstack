@@ -184,7 +184,7 @@ const PasswordRecoveryCard = () => {
     return (
         <Card className="md:max-w-5xl">
             <CardHeader>
-                <CardTitle>Log In To Go Turbo!</CardTitle>
+                <CardTitle>Password Recovery</CardTitle>
                 {/* <CardDescription></CardDescription> */}
             </CardHeader>
             <CardContent>

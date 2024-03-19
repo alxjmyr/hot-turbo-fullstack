@@ -1,1 +1,93 @@
+version: '3'
+services:
+  db:
+    image: postgres:alpine
+    # ports:
+    #   - 5432:5432
+    volumes:
+      - ./database/data:/var/lib/postgresql/data
+    env_file:
+      - ./.env.staging
+    networks:
+      - traefik_gateway
 
+  # Backend python FastAPI
+  backend:
+    image: hotturbo:backend
+    build:
+      context: ./backend
+    command: >
+      /bin/ash -c "uvicorn app.main:app --port 8000 --host 0.0.0.0"
+    env_file:
+      - ./.env.staging
+    depends_on:
+      - db
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.backend.rule=Host(`${DOMAIN_BACKEND}`, `www.${DOMAIN_BACKEND}`)"
+      - "traefik.http.routers.backend.entrypoints=websecure"
+      - "traefik.http.routers.backend.tls.certresolver=myresolver"
+      - "traefik.http.services.backend.loadbalancer.server.port=8000"
+      - "traefik.http.middlewares.backend-ratelimit.ratelimit.average=${RATELIMIT_AVG}"
+      - "traefik.http.middlewares.backend-ratelimit.ratelimit.burst=${RATELIMIT_BURST}"
+    networks:
+      - traefik_gateway
+
+  # Front End (nginx serving react app)
+  frontend:
+    image: hotturbo:frontend
+    build:
+      context: ./frontend
+      args:
+        - VITE_APP_ENV=${VITE_APP_ENV}
+        - VITE_API_BASE_URL=${VITE_API_BASE_URL}
+        - VITE_API_V1_PREFIX=${VITE_API_V1_PREFIX}
+    depends_on:
+      - backend
+    env_file:
+      - ./.env.staging
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.frontend.rule=Host(`${DOMAIN_FRONTEND}`, `www.${DOMAIN_FRONTEND}`)"
+      - "traefik.http.routers.frontend.entrypoints=websecure"
+      - "traefik.http.routers.frontend.tls.certresolver=myresolver"
+      - "traefik.http.middlewares.frontend-ratelimit.ratelimit.average=${RATELIMIT_AVG}"
+      - "traefik.http.middlewares.frontend-ratelimit.ratelimit.burst=${RATELIMIT_BURST}"
+    networks:
+      - traefik_gateway
+
+  # Traefik service (reverse proxy & https)
+  traefik:
+    image: "traefik:v2.11"
+    env_file:
+      - ./.env.staging
+    container_name: "traefik"
+    # Commands listed below determine configuration of the traefik instance
+    command:
+      - "--log.level=DEBUG"
+      - "--api.insecure=true"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entrypoints.web.address=:80"
+      - "--entrypoints.web.http.redirections.entryPoint.to=websecure"
+      - "--entrypoints.web.http.redirections.entryPoint.scheme=https"
+      - "--entrypoints.web.http.redirections.entrypoint.permanent=true"
+      - "--entrypoints.websecure.address=:443"
+      - "--certificatesresolvers.myresolver.acme.httpchallenge=true"
+      - "--certificatesresolvers.myresolver.acme.httpchallenge.entrypoint=web"
+      # - "--certificatesresolvers.myresolver.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory"
+      - "--certificatesresolvers.myresolver.acme.email=`${PROJECT_EMAIL}`"
+      - "--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json"
+    ports:
+      - "80:80"
+      - "8080:8080"
+      - "443:443"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+      - "./letsencrypt:/letsencrypt"
+    networks:
+      - traefik_gateway
+
+networks:
+  traefik_gateway:
+    external: false

@@ -1,7 +1,10 @@
 # Hot Turbo Frontend
 
 TODO
-* Go through and fix styling / design type stuff on all pages.....
+* PWA Features
+    * manifest.json
+    * App Install Banner
+    * Push Notifications
 * Create User Profile Page (add to header nav)
     * Clean up user updates flow
     * better input / selection option for deactivating account
