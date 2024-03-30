@@ -2,7 +2,6 @@
 Template repo for quickly spinning up a full stack react app
 
 TODO:
-* Prod Docker Compose
 * Traefik configs-
     * figure out how to make local dev / staging ssl stuff work better
 
@@ -10,8 +9,10 @@ TODO:
     * React w/ vite
     * Shadcn UI
     * PWA Features
-        * manifest.json
+        * manifest.json (x)
+        * service worker (x)
         * Install App Banner
+        * Push Notifications
 * Backend
     * Python FastAPI
 * Database

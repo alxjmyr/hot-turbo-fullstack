@@ -13,3 +13,8 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     </ThemeProvider>
   </React.StrictMode>,
 )
+
+if ('serviceWorker' in navigator) {
+  console.log("trying to register service worker");
+  navigator.serviceWorker.register("./serviceworker.js");
+}

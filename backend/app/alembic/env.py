@@ -3,10 +3,10 @@ from logging.config import fileConfig
 from sqlalchemy import engine_from_config
 from sqlalchemy import pool
 
-from core.config import SQLALCHEMY_DATABASE_URI
+from app.core.config import SQLALCHEMY_DATABASE_URI
 
 from alembic import context
-from db.engine import db_engine
+from app.db.engine import db_engine
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
@@ -21,7 +21,7 @@ if config.config_file_name is not None:
 # for 'autogenerate' support
 # from myapp import mymodel
 # target_metadata = mymodel.Base.metadata
-from schemas.db_models import SQLModel
+from app.schemas.db_models import SQLModel
 
 target_metadata = SQLModel.metadata
 
