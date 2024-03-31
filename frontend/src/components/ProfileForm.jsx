@@ -77,6 +77,7 @@ const ProfileForm = () => {
             })
             .catch(error => {
                 toast({
+                    variant: "destructive",
                     title: "Account Update Error",
                     description: error.reponse.data.detail
                 })

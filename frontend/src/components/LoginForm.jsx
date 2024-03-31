@@ -65,6 +65,7 @@ const LoginForm = () => {
             })
             .catch(error => {
                 toast({
+                    variant: "destructive",
                     title: "Problem At Sign In",
                     description: error.response.data.detail
                 })

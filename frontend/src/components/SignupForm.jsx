@@ -74,6 +74,7 @@ const SignupForm = () => {
             })
             .catch(error => {
                 toast({
+                    variant: "destructive",
                     title: "Problem Creating Your Account",
                     description: error.response.data.detail
                 })
