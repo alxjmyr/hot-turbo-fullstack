@@ -9,6 +9,13 @@ import { getBrowser, getDeviceType, getDisplayMode } from './lib/userDevice';
 import { useState, useEffect } from 'react';
 import { Button } from './components/ui/button';
 
+import { Share2Icon } from '@radix-ui/react-icons';
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover"
+
 function App() {
   // dashboard page example
   // https://github.com/shadcn-ui/ui/blob/main/apps/www/app/examples/dashboard/page.tsx
@@ -18,7 +25,7 @@ function App() {
   const [browser, setBrowser] = useState("");
   const [installPromptEvent, setInstallPromptEvent] = useState(null);
   const [installEligibility, setInstallEligibility] = useState(true);
-  const [showInstallBanner, setShowInstallBanner] = useState(false);
+  // const [showInstallBanner, setShowInstallBanner] = useState(false);
 
   // capture and defer PWA instal prompt
   let deferredPrompt;
@@ -45,40 +52,55 @@ function App() {
       });
     };
 
-    if (!installPromptEvent && installEligibility) {
-      // app can be installed but browser does not supprt any install banner natively
-      setShowInstallBanner(true);
-    }
+    // if (!installPromptEvent && installEligibility) {
+    //   // app can be installed but browser does not supprt any install banner natively
+    //   setShowInstallBanner(true);
+    // }
 
   };
 
   const buildInstallBanner = (device, browser) => {
-    if (['iPhone', 'iPad'].includes(device) && browser === "Safari") {
-      // return ("This is a apple device in Safari... Click share below and choose add to homepage")
+
+    const createBannerContent = () => {
+      if (['iPhone', 'iPad'].includes(device) && browser === "Safari") {
+        // return ("This is a apple device in Safari... Click share below and choose add to homepage")
+        return (
+          <>
+            <ol >
+              <li>
+                Click on the share menu below.
+                <Share2Icon />
+              </li>
+              <li> Scroll down and select Add to Home Page</li>
+            </ol >
+          </>
+        )
+      }
+      if (device === 'Desktop' && browser === "Safari") {
+        return ("Click File >> Add to Dock to install the Hot Turbo App on your device")
+      }
+      if (browser === "Firefox") {
+        return ("You are using Firefox... Please install the firefox PWA extention to install the app, or use a different browser")
+      } else {
+        return (`Browser: ${browser} || Device: ${device} ||`)
+      }
+    }
+
+    if (!installPromptEvent && installEligibility) {
       return (
         <>
-          <ol >
-            <li>
-              Click on the share menu below.
-              <img
-                src="./images/safari-share-icon.png"
-                alt="Safari Share Icon"
-                style={{ width: 24, height: 24, marginTop: 10, marginBottom: 0 }}
-              />
-            </li>
-            <li> Scroll down and select Add to Home Page</li>
-          </ol >
+          <Popover>
+            <PopoverTrigger asChild>
+              <Button variant="outline">Install App</Button>
+            </PopoverTrigger>
+            <PopoverContent className="w-80">
+              {createBannerContent()}
+            </PopoverContent>
+          </Popover>
         </>
+
       )
-    }
-    if (device === 'Desktop' && browser === "Safari") {
-      return ("Click File >> Add to Dock to install the Relationship Memos App on your device")
-    }
-    if (browser === "Firefox") {
-      return ("This is using Firefox... Please install the firefox PWA extention to install the app, or use a different browser")
-    } else {
-      return (`Browser: ${browser} || Device: ${device} ||`)
-    }
+    };
 
   };
 
@@ -87,6 +109,8 @@ function App() {
     setDevice(getDeviceType());
     setBrowser(getBrowser());
 
+    // may want to use navigator.getInstalledRelatedApps()
+    // to check if user already has the app installed
     if (getDisplayMode() === 'browser') {
       if (installPromptEvent) {
         // app is installable... Browser fired the beforeinstallpromopt event
@@ -101,15 +125,16 @@ function App() {
       setInstallEligibility(false);
     }
 
-
   }, [installPromptEvent, browser])
 
   return (
     <>
       <MainNav />
-      <Button onClick={() => handleInstallPrompt()}>Install App??</Button>
-      {showInstallBanner && buildInstallBanner(device, browser)}
       <AppRoutes />
+      <div className='absolute bottom-1 right-1'>
+        {installPromptEvent && <Button variant="outline" onClick={() => handleInstallPrompt()}>Install App</Button>}
+        {buildInstallBanner(device, browser)}
+      </div>
       <Toaster />
     </>
   )

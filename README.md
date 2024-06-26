@@ -11,8 +11,8 @@ TODO:
     * PWA Features
         * manifest.json (x)
         * service worker (x)
-        * Install App Banner
-        * Push Notifications
+        * Install App Banner (x)
+        * Push Notifications ()
 * Backend
     * Python FastAPI
 * Database
