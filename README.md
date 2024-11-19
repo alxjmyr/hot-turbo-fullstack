@@ -13,7 +13,9 @@ TODO:
         * service worker (x)
         * Install App Banner (x)
         * Push Notifications ()
+            * start using google push service and then move to self managed later on
 * Backend
     * Python FastAPI
 * Database
     * Postgres
+
