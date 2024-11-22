@@ -8,7 +8,7 @@ packages = [{include = "hotturbo_api"}]
 
 [tool.poetry.dependencies]
 python = "^3.12"
-fastapi = "^0.109.2"
+fastapi = "^0.115.2"
 uvicorn = "^0.27.1"
 python-dotenv = "^1.0.1"
 python-jose = "^3.3.0"
