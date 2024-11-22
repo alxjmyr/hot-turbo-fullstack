@@ -12,7 +12,7 @@ export const api = {
         return axios.get(`${backendUrl}/${backendV1}/hello`)
     },
     async getLoginToken(email, password) {
-        return axios.post(`${baseUrl}token`, `grant_type=&username=${email}&password=${password}&scope=&client_id=&client_secret=`, { headers: { "Content-Type": "application/x-www-form-urlencoded" }, })
+        return axios.post(`${baseUrl}token`, `grant_type=password&username=${email}&password=${password}&scope=&client_id=&client_secret=`, { headers: { "Content-Type": "application/x-www-form-urlencoded" }, })
     },
     async requestPasswordRecovery(email) {
         return axios.post(`${baseUrl}password-reset/${email}`, { headers: { "Content-Type": "application/json" } })
