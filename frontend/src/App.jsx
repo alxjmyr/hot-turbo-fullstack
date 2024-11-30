@@ -131,7 +131,7 @@ function App() {
     <>
       <MainNav />
       <AppRoutes />
-      <div className='absolute bottom-1 right-1'>
+      <div className='absolute bottom-3 right-3'>
         {installPromptEvent && <Button variant="outline" onClick={() => handleInstallPrompt()}>Install App</Button>}
         {buildInstallBanner(device, browser)}
       </div>

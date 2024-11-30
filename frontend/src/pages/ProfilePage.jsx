@@ -4,7 +4,7 @@ const Profile = () => {
 
     return (
         <>
-            <div className="grid place-items-center">
+            <div className="grid place-items-center mt-6">
                 <ProfileForm />
             </div>
 

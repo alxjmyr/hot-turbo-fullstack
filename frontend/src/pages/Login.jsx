@@ -2,7 +2,10 @@ import LoginCard from "@/components/LoginCard";
 
 const Login = () => {
     return (
-        <LoginCard />
+        <div className="grid place-items-center mt-6">
+            <LoginCard />
+        </div>
+
     )
 };
 
